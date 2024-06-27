@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "5c30513a7b5719af6afa3ec660290f1b"
+name = "Test App"
+handle = "jeebly-app"
+application_url = "https://mouse-tennessee-cycling-dual.trycloudflare.com"
+embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-8948ab04.myshopify.com"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "read_locations,read_orders,read_products,write_locations,write_orders,write_products"
+
+[auth]
+redirect_urls = [
+  "https://mouse-tennessee-cycling-dual.trycloudflare.com/auth/callback",
+  "https://mouse-tennessee-cycling-dual.trycloudflare.com/auth/shopify/callback",
+  "https://mouse-tennessee-cycling-dual.trycloudflare.com/api/auth/callback"
+]
+
+[webhooks]
+api_version = "2024-04"
+
+[pos]
+embedded = false
