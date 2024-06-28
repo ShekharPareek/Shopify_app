@@ -3,7 +3,7 @@
 client_id = "5c30513a7b5719af6afa3ec660290f1b"
 name = "Test App"
 handle = "jeebly-app"
-application_url = "https://mouse-tennessee-cycling-dual.trycloudflare.com"
+application_url = "https://seasons-diagnostic-palm-alexandria.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "read_locations,read_orders,read_products,write_locations,write_orders,
 
 [auth]
 redirect_urls = [
-  "https://mouse-tennessee-cycling-dual.trycloudflare.com/auth/callback",
-  "https://mouse-tennessee-cycling-dual.trycloudflare.com/auth/shopify/callback",
-  "https://mouse-tennessee-cycling-dual.trycloudflare.com/api/auth/callback"
+  "https://seasons-diagnostic-palm-alexandria.trycloudflare.com/auth/callback",
+  "https://seasons-diagnostic-palm-alexandria.trycloudflare.com/auth/shopify/callback",
+  "https://seasons-diagnostic-palm-alexandria.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

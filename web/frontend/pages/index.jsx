@@ -14,7 +14,7 @@ import { LoginPage } from "../components/loginPage";
 export default function HomePage() {
   return (
     <Page narrowWidth>
-      <TitleBar title={"Jeebly-app"} primaryAction={null} />
+      <TitleBar title={"My APP"} primaryAction={null} />
       <Layout>
         <Layout.Section>
         <LoginPage />

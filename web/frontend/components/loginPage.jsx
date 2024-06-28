@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import {
   TextContainer,
   Text,
@@ -11,6 +12,7 @@ import {
 } from "@shopify/polaris";
 
 import { Toast } from "@shopify/app-bridge-react";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [toastProps, setToastProps] = useState({});
@@ -18,12 +20,22 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("accessToken") || ""
+  );
+
+  const navigate = useNavigate(); // useNavigate hook from react-router-dom
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate("/home");
+    }
+  }, [accessToken, navigate]);
 
   const handleSubmit = async () => {
     setIsLoading(true);
 
-    const url = "https://demo.jeebly.com/Shopify/userlogin";
+    const url = "https://demo.jeebly.com/app/userlogin";
     const params = new URLSearchParams({
       login_id: username,
       password: password,
@@ -52,8 +64,10 @@ export function LoginPage() {
       if (response.ok) {
         const { token } = responseBody; 
         setAccessToken(token); 
+        localStorage.setItem("accessToken", token);
         setToastProps({ content: "Login successful", error: false });
         setError("");
+        navigate("/home"); // Redirect to home page on successful login
       } else {
         setError(responseBody.message || "Login failed");
         setToastProps({ content: "Login failed", error: true });
@@ -67,12 +81,24 @@ export function LoginPage() {
     }
   };
 
+  const handleLogout = () => {
+    setAccessToken("");
+    localStorage.removeItem("accessToken");
+    setUsername("");
+    setPassword("");
+    setToastProps({ content: "Logged out successfully", error: false });
+  };
+
   const handleUsernameChange = (value) => {
     setUsername(value);
   };
 
   const handlePasswordChange = (value) => {
     setPassword(value);
+  };
+
+  const handleRegisterClick = () => {
+    window.location.href = 'https://www.example.com'; 
   };
 
   const toastMarkup = toastProps.content && (
@@ -91,39 +117,54 @@ export function LoginPage() {
             style={{ height: "100vh" }}
           >
             <Thumbnail
-              source="https://www.thedigigarage.in/dev/jeebly-app/img/logo.png"
+              source={"assets/logoipsum-332.svg"}
             />
           </LegacyStack>
 
           <Text as="h4" variant="headingMd">
             <FormLayout>
-              <TextField
-                type="email"
-                label="Jeebly email"
-                value={username}
-                onChange={handleUsernameChange}
-                autoComplete="email"
-              />
-              <TextField
-                type="password"
-                label="Password"
-                value={password}
-                onChange={handlePasswordChange}
-                autoComplete="current-password"
-              />
-              {error && <p style={{ color: "red" }}>{error}</p>}
-              {accessToken && <p>Access Token: {accessToken}</p>}
-              <PageActions
-                primaryAction={{
-                  content: "Login",
-                  onClick: handleSubmit,
-                }}
-              />
+              {!accessToken ? (
+                <>
+                  <TextField
+                    type="email"
+                    label="Email"
+                    value={username}
+                    onChange={handleUsernameChange}
+                    autoComplete="email"
+                  />
+                  <TextField
+                    type="password"
+                    label="Password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    autoComplete="current-password"
+                  />
+                  {error && <p style={{ color: "red" }}>{error}</p>}
+                  <PageActions
+                    primaryAction={{
+                      content: "Login",
+                      onClick: handleSubmit,
+                      loading: isLoading,
+                    }}
+                  />
+                  <PageActions
+                  primaryAction={{
+                    content: 'Register',
+                    onClick: handleRegisterClick,
+                  }}
+                 />
+                </>
+              ) : (
+                <>
+                  <p>You are logged in</p>
+                  <PageActions primaryAction={{ content: "Logout", onClick: handleLogout }} />
+                </>
+              )}
             </FormLayout>
           </Text>
         </TextContainer>
-        
       </AlphaCard>
     </>
   );
 }
+

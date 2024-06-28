@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import { useAppQuery } from "../hooks";
-
 function BookShipment() {
   const [isLoading, setIsLoading] = useState(true);
   const [orderData, setOrderData] = useState({ data: [] });
@@ -19,12 +18,15 @@ function BookShipment() {
       },
     },
   });
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
-      <section className="book-shipment-sec-min">
+      <section className="book-shipment-sec-min ">
         <div className="container-fluid">
-          <div className="row bg-white mt-5 rounded inputs">
+          <div className="row bg-white mt-5 rounded inputs shadow p-3 mb-5 bg-body rounded">
             <div className="col-md-3 col-lg-3">
               <label for="select_btn">Order Id</label>
               <select id="select_btn" className="form-select">
@@ -70,11 +72,11 @@ function BookShipment() {
           </div>
         </div>
       </section>
-      <section className="pt-2">
+      <section>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="pickup-location">
+          <div className="row g-2percent">
+            <div className="col-md-6 mb-5 w-49">
+              <div className="picup-location">
                 <div className="row">
                   <div className="col-md-12">
                     <h4>Pickup Location</h4>
@@ -162,8 +164,8 @@ function BookShipment() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6">
-              <div className="drop-location">
+            <div className="col-md-6  mb-5  w-49">
+              <div className="picup-location">
                 <div className="row">
                   <div className="col-md-12">
                     <h4>Drop Location</h4>
@@ -256,56 +258,74 @@ function BookShipment() {
       </section>
       <section>
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6">
-              <div className="pickup-location">
-                <div className="row">
-                  <div className="col-md-4 col-lg-4">
-                    <label htmlFor="pickup_date">Pickup Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="pickup_date"
-                      name="pickup_date"
-                    />
+               <div className="row  g-2percent">
+            <div className="col-md-6 mb-5 w-49">
+                <div className="picup-location">
+                  <div className="row">
+                      <div className="col-md-4 col-lg-4">
+                          <label for="from">Pickup Date</label>
+                    <input type="date" className="form-control" id="from" value="" name="from"/>
+                      </div> 
+                      <div className="col-md-4 col-lg-4">
+                          <label for="ref_nu">Item Weight</label>
+                          <input type="text" className="form-control" id="ref_nu" value="" name="ref_nu"/>
+                      </div>
+  
+                      <div className="col-md-4 col-lg-4">
+                          <label for="from">Number of Pieces</label>
+                          <select className="form-select" aria-label="Default select example">
+                              <option selected="">1</option>
+                              <option value="1">2</option>
+                              <option value="2">3</option>
+                              <option value="3">4</option>
+                              <option value="4">5</option>
+                              <option value="5">6</option>
+                              <option value="6">7</option>
+                              <option value="7">8</option>
+                            </select>
+                            
+                      </div>
+                      <div className="col-md-6 col-lg-6 radio-sec-payment-type">
+                          <label for="ref_nu">Order Payment Type</label>
+                          <div className="main-check-btn-payment">
+                            <div class="form-check">
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                <label className="form-check-label" for="flexRadioDefault1">
+                                  Prepaid 
+                                </label>
+                              </div>
+                              <div class="form-check ">
+                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked=""/>
+                                <label className="form-check-label" for="flexRadioDefault2">
+                                  COD
+                                </label>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="col-md-6 col-lg-6">
+                        <label for="ref_nu">COD Amount</label>
+                        <input type="text" className="form-control" id="ref_nu" value="" name="ref_nu"/>
+                    </div>
                   </div>
-                  <div className="col-md-4 col-lg-4">
-                    <label htmlFor="item_weight">Item Weight</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="item_weight"
-                      name="item_weight"
-                    />
                   </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="drop-location">
-                <div className="row">
-                  <div className="col-md-4 col-lg-4">
-                    <label htmlFor="item_desc">Item Description</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="item_desc"
-                      name="item_desc"
-                    />
-                  </div>
-                  <div className="col-md-4 col-lg-4">
-                    <label htmlFor="item_quantity">Item Quantity</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="item_quantity"
-                      name="item_quantity"
-                    />
-                  </div>
-                </div>
-              </div>
+          </div>
+         <div className="col-md-6 mb-5 w-49">
+        <div className="picup-location">
+       <div className="row">
+        <div className="mb-3">
+            <label for="exampleFormControlTextarea1" className="form-label">Special Instructions</label>
+            <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+       </div>
+        </div>
+         </div>
+         <div className="col-md-12">
+            <div className="text-center submit_btn mb-4">
+          <button type="button" className="btn btn-dark-blue px-5" style={{color:"#fff",background:"#041f40"}}>Submit</button>
             </div>
           </div>
+         </div>
+            
         </div>
       </section>
     </>

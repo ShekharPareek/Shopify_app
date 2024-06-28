@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useAppQuery } from "../hooks";
-
+import { useNavigate } from "react-router-dom";
+import {
+    PageActions
+  } from "@shopify/polaris";
 
 function home() {
     const [isLoading, setIsLoading] = useState(true);
@@ -17,9 +20,22 @@ function home() {
       });
 
 
+      const handleLogout = () => {
+        localStorage.clear();
+        const navigate = useNavigate();
+
+      useEffect(() => {
+        if (accessToken) {
+          navigate("/");
+        }
+      });
+      };
+    
     const cardStyle = {
         backgroundColor: 'var(--p-color-bg-fill-emphasis-hover)',
       };
+
+      
     
   return (
     <section className="manage-address-main-sec">
@@ -38,7 +54,7 @@ function home() {
                         </div>
                     </div>
                     <div className="synced-main-detail">
-                        <h2>0</h2>
+                        <span  style={{fontSize:"18px",fontWeight:"700",color:"#163758",Align:"center"}}>0</span>
                     </div>
                 </div>
             </div>
@@ -51,11 +67,11 @@ function home() {
                             <i className="fa fa-check" aria-hidden="true"></i>
                         </div>
                         <div className="text-synced">
-                            <h4>Shopify Orders</h4>
+                            <h4>Total Orders</h4>
                         </div>
                     </div>
-                    <div className="synced-main-detail">
-                        <span style={{fontSize:"22px",fontWeight:"700",color:"#163758"}}>{isorderLoadingCount ? "-" : ordersdata.count}</span>
+                    <div className="synced-main-detail ">
+                        <span className="" style={{fontSize:"18px",fontWeight:"700",color:"#163758",Align:"center"}}>{isorderLoadingCount ? "-" : ordersdata.count}</span>
                     </div>
                 </div>
             </div>
@@ -70,11 +86,12 @@ function home() {
                         </div>
                     </div>
                     <div className="synced-main-detail">
-                        <h2>9720</h2>
+                    <span  style={{fontSize:"18px",fontWeight:"700",color:"#163758",Align:"center"}}>0</span>
                     </div>
                 </div>
             </div>
         </div>
+        <PageActions primaryAction={{ content: "Logout", onClick:handleLogout,}} />
     </div>
 </section>
 

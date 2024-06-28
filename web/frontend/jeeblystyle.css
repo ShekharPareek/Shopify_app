@@ -528,10 +528,22 @@ section.manage-address-main-sec .inside-card h4.text-center {
 
 }
 
-label.Polaris-Label__Text {
-    color: #003e70!important;
+/* custom classes for shopify UI */
+.w-49{
+    width:49%!important;
 }
 
-button.Polaris-Button.Polaris-Button--primary {
-    background-color: #db124b;
+.g-2percent{
+    gap:2%;
+}
+
+
+
+
+
+
+/* React App id custom css */
+
+#app{
+    padding:18px;
 }
